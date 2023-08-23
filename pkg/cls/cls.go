@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -34,7 +35,7 @@ func (log Log) formatAdd() string {
 func Info(log Log) {
 	fmt.Printf(
 		"Lvl:INFO;:;Msg:%s;:;Add:%s;:;Ts:%s;:; \n",
-		log.Msg,
+		remExtraSpace(log.Msg),
 		log.formatAdd(),
 		time.Now().Format("2006-01-02 15:04:05"),
 	)
@@ -45,7 +46,7 @@ func Info(log Log) {
 func Warn(log Log) {
 	fmt.Printf(
 		"Lvl:WARN;:;Msg:%s;:;Err:%s;:;Add:%s;:;Ts:%s;:; \n",
-		log.Msg,
+		remExtraSpace(log.Msg),
 		log.Err.Error(),
 		log.formatAdd(),
 		time.Now().Format("2006-01-02 15:04:05"),
@@ -57,7 +58,7 @@ func Warn(log Log) {
 func Fail(log Log) {
 	fmt.Printf(
 		"Lvl:FAIL;:;Msg:%s;:;Err:%s;:;Add:%s;:;Ts:%s;:; \n",
-		log.Msg,
+		remExtraSpace(log.Msg),
 		log.Err.Error(),
 		log.formatAdd(),
 		time.Now().Format("2006-01-02 15:04:05"),
@@ -67,3 +68,7 @@ func Fail(log Log) {
 }
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ //
+
+func remExtraSpace(m string) string {
+	return strings.Join(strings.Fields(m), " ")
+}
